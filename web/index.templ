@@ -73,9 +73,8 @@ templ base(title string, body templ.Component, impressum *config.Impressum, chal
 						<p>
 							{ localizer.T("protected_by") } <a href="https://github.com/TecharoHQ/anubis">Anubis</a> { localizer.T("protected_from") } <a
 	href="https://techaro.lol"
->Techaro</a>. { localizer.T("made_with") }.
+>Techaro</a>.
 						</p>
-						<p>{ localizer.T("mascot_design") } <a href="https://bsky.app/profile/celphase.bsky.social">{ localizer.T("celphase") }</a>.</p>
 						if impressum != nil {
 							<p>
 								@templ.Raw(impressum.Footer)
@@ -92,7 +91,7 @@ templ base(title string, body templ.Component, impressum *config.Impressum, chal
 
 templ errorPage(message, mail, code string, localizer *localization.SimpleLocalizer) {
 	<div class="centered-div">
-		<img id="image" alt="Sad Anubis" style="width:100%;max-width:256px;" src={ anubis.BasePrefix + "/.within.website/x/cmd/anubis/static/img/reject.webp?cacheBuster=" + anubis.Version }/>
+		<img id="image" alt="Sad Anubis" style="width:100%;max-width:256px;" src={ "https://www.ulb.tu-darmstadt.de/media/ulb/logos_ulb/ulb_logo_schriftzug_tuerkis_rgb.jpg" }/>
 		<p>{ message }.</p>
 		if code != "" {
 			<code><pre>{ code }</pre></code>
@@ -115,8 +114,7 @@ templ StaticHappy(localizer *localization.SimpleLocalizer) {
 		<img
 			style="display:none;"
 			style="width:100%;max-width:256px;"
-			src={ "/.within.website/x/cmd/anubis/static/img/happy.webp?cacheBuster=" +
-    anubis.Version }
+			src={ "https://www.ulb.tu-darmstadt.de/media/ulb/logos_ulb/ulb_logo_schriftzug_tuerkis_rgb.jpg" }
 		/>
 		<p>{ localizer.T("static_check_endpoint") }</p>
 	</div>
@@ -145,7 +143,7 @@ templ bench(localizer *localization.SimpleLocalizer) {
 			></tbody>
 		</table>
 		<div class="centered-div">
-			<img id="image" style="width:100%;max-width:256px;" src={ anubis.BasePrefix + "/.within.website/x/cmd/anubis/static/img/pensive.webp?cacheBuster=" + anubis.Version }/>
+			<img id="image" style="width:100%;max-width:256px;" src={ "https://www.ulb.tu-darmstadt.de/media/ulb/logos_ulb/ulb_logo_schriftzug_tuerkis_rgb.jpg" }/>
 			<p id="status" style="max-width:256px">{ localizer.T("loading") }</p>
 			<script async type="module" src={ anubis.BasePrefix + "/.within.website/x/cmd/anubis/static/js/bench.mjs?cacheBuster=" + anubis.Version }></script>
 			<div id="sparkline"></div>
