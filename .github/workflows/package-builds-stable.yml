@@ -2,8 +2,13 @@ name: Package builds (stable)
 
 on:
   workflow_dispatch:
-  # release:
-  #   types: [published]
+    inputs:
+      tag:
+        description: Release tag to build and upload
+        required: true
+        type: string
+  release:
+    types: [published]
 
 permissions:
   contents: write
@@ -13,12 +18,15 @@ jobs:
   package_builds:
     #runs-on: alrest-techarohq
     runs-on: ubuntu-24.04
+    env:
+      RELEASE_VERSION: ${{ github.event.release.tag_name || inputs.tag }}
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           persist-credentials: false
           fetch-tags: true
           fetch-depth: 0
+          ref: refs/tags/${{ env.RELEASE_VERSION }}
 
       - name: build essential
         run: |
@@ -42,12 +50,10 @@ jobs:
 
       - name: Upload released artifacts
         env:
-          GITHUB_TOKEN: ${{ github.TOKEN }}
-          RELEASE_VERSION: ${{github.event.release.tag_name}}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         shell: bash
         run: |
-          RELEASE="${RELEASE_VERSION}"
           cd var
           for file in *; do
-            gh release upload $RELEASE $file
+            gh release upload "$RELEASE_VERSION" "$file" --clobber
           done
